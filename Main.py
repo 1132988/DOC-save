@@ -8,15 +8,15 @@ print("5. Возврат для Юридических лиц")
 choice = input("Введите номер программы для запуска: ")
 
 if choice == "1":
-    os.system('Kvitanciya.py')
+    os.system('py Kvitanciya.py')
 elif choice == "2":
-    os.system('PriyomCH.py')
+    os.system('py PriyomCH.py')
 elif choice == "3":
-    os.system('priyomUR.py')
+    os.system('py priyomUR.py')
 elif choice == "4":
-    os.system('vozvratCH.py')
+    os.system('py vozvratCH.py')
 elif choice == "5":
-    os.system('VozvratUR.py')
+    os.system('py VozvratUR.py')
 else:
     print("Неправильный выбор")
     
