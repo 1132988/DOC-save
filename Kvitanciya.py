@@ -2,7 +2,7 @@
 # 2. Дата приема или передачи сделать
 import sys
 import os
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate as dtl
 from datetime import datetime
 import locale
 locale.setlocale(locale.LC_ALL, 'Russian')
@@ -43,7 +43,7 @@ def folders(): #Проверка и создание папки
         print("Папка создана")
     else:
         print("Папка уже существует")
-doc = DocxTemplate('C:\"Program Files"\Python38\pythonDOCX\Квитанция.docx') #ОШИБКА ТУТ
+doc = dtl(r'C:\"Program Files"\Python38\pythonDOCX\Квитанция.docx') #ОШИБКА ТУТ
 act=input('Акт №: ')
 wrong = input('Заявленная Неисправность: ')
 phone = input('телефон: ')
