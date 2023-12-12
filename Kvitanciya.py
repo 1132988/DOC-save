@@ -1,5 +1,3 @@
-
-# 2. Дата приема или передачи сделать
 import sys
 import os
 from docxtpl import DocxTemplate as dtl
@@ -25,8 +23,7 @@ def check_file(): #Проверка на наличие файла
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx')  # Место куда сохраняется этот файл
         print("Сохранён новый файл")
         os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере
-        
-        
+       
 def yes_not(): #Возможность перезаписи файла (отказались)
     print("Вы хотите перезаписать файл?")
     answer = input('Введите Y или N: ')
@@ -36,6 +33,7 @@ def yes_not(): #Возможность перезаписи файла (отка
         doc.save(f'D:/Documents/{act}.docx')  # Место куда сохраняется этот файл
     else:
         print("Оставлено без изменений")
+
 def folders(): #Проверка и создание папки
     folder_way = f'D:/Documents/{data_y}/{data_f}/{snsrv}'
     if not os.path.exists(folder_way):
@@ -43,7 +41,8 @@ def folders(): #Проверка и создание папки
         print("Папка создана")
     else:
         print("Папка уже существует")
-doc = dtl(r'C:\"Program Files"\Python38\pythonDOCX\Квитанция.docx') #ОШИБКА ТУТ
+
+doc = dtl('C:\"Program Files"\Python38\pythonDOCX\Квитанция.docx') #ОШИБКА ТУТ
 act=input('Акт №: ')
 wrong = input('Заявленная Неисправность: ')
 phone = input('телефон: ')
