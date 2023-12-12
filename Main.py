@@ -7,15 +7,15 @@ print("4. Возврат для частных лиц")
 print("5. Возврат для Юридических лиц")
 choice = input("Введите номер программы для запуска: ")
 
-if choice == "1":
-    os.system('py Kvitanciya.py')
+if choice == "1": 
+    os.system(r'C:\"Program Files"\Python38\pythonDOCX\Kvitanciya.py')
 elif choice == "2":
-    os.system('py PriyomCH.py')
+    os.system(r'C:\"Program Files"\Python38\pythonDOCX\PriyomCH.py')
 elif choice == "3":
-    os.system('py priyomUR.py')
+    os.system(r'C:\"Program Files"\Python38\pythonDOCX\priyomUR.py')
 elif choice == "4":
-    os.system('py vozvratCH.py')
+    os.system(r'C:\"Program Files"\Python38\pythonDOCX\vozvratCH.py')
 elif choice == "5":
-    os.system('py VozvratUR.py')
+    os.system(r'C:\"Program Files"\Python38\pythonDOCX\VozvratUR.py')
 else:
     print("Неправильный выбор")
