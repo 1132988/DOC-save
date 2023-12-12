@@ -19,5 +19,3 @@ elif choice == "5":
     os.system('py VozvratUR.py')
 else:
     print("Неправильный выбор")
-    
-input()
