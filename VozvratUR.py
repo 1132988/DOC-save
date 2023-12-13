@@ -43,7 +43,7 @@ def check_file(): #Проверка на наличие файла
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЮР.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
 
-doc = DocxTemplate("Акт возврата.docx")
+doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт возврата.docx')
 print("Акт возврата для юридических лиц")
 act = input('Акт №: ')
 sn = input('Serial Number оборудования: ')

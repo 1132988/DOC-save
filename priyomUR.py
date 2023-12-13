@@ -6,7 +6,7 @@ from datetime import datetime
 import locale
 locale.setlocale(locale.LC_ALL, 'Russian')
 def check_miss(): #Проверка по количеству символов для: серийного номера оборудования и неисправности
-    if len(wrong)>=5 and len(sn)>=5 and len(note)>=10 and snsrv:
+    if len(wrong)>=5 and len(sn)>=5 and len(note)>=9 and snsrv:
         print("Продолжаем работу")
     else:
         print('"ERROR!" Невозможно сохранить файл, вводите данные полностью!!!')
@@ -43,7 +43,7 @@ def check_file(): #Проверка на наличие файла
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}приёмЮР.docx')  # Место куда сохраняется этот файл
         print("Сохранён новый файл")
 
-doc = DocxTemplate("Акт приема.docx")
+doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приема.docx')
 print("Акт приёма для юридических лиц")
 act = input('Акт №: ')
 sn = input('Serial Number оборудования: ')
