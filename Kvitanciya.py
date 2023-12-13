@@ -42,7 +42,7 @@ def folders(): #Проверка и создание папки
     else:
         print("Папка уже существует")
 
-doc = dtl('C:\"Program Files"\Python38\pythonDOCX\Квитанция.docx') #ОШИБКА ТУТ
+doc = dtl(r'C:\Program Files\Python38\pythonDOCX\Квитанция.docx')
 act=input('Акт №: ')
 wrong = input('Заявленная Неисправность: ')
 phone = input('телефон: ')
