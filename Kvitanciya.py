@@ -1,3 +1,4 @@
+#Квитанция приёме оборудования, печатается
 import sys
 import os
 from docxtpl import DocxTemplate as dtl

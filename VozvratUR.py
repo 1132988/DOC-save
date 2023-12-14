@@ -1,3 +1,4 @@
+#Возврат для юридических лиц
 import os
 import sys
 import datetime
