@@ -25,7 +25,8 @@ def check_file(): #Проверка на наличие файла
     else:
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx')  # Место куда сохраняется этот файл
         print("Сохранён новый файл")
-        os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере
+        os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере 1
+        os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере 2
        
 def yes_not(): #Возможность перезаписи файла (отказались)
     print("Вы хотите перезаписать файл?")
