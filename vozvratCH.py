@@ -1,6 +1,7 @@
 #Возврат для частных лиц
 import os
 import sys
+import sqlite3
 import datetime
 from docxtpl import DocxTemplate
 from datetime import datetime
@@ -45,12 +46,20 @@ def check_file(): #Проверка на наличие файла
     else:
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЧЛ.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
+def database(): #Создание базы данных
+    conn = sqlite3.connect('trial_guarantee.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER, act INTEGER, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT, act_p INTEGER)''')
+    cursor.execute("INSERT INTO vozvrat_ch (act, snsrv, note, sn, act_p) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, act_p))
+    conn.commit()
+    conn.close()  
 
 doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_возвратаЧЛ.docx')
 print("Акт возврата для частных лиц")
 act = input('Акт №: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание, что было сделано и тп (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+act_p = input('Ранее принято по акту: ')
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
@@ -65,9 +74,10 @@ data = data_object.strftime('%d %B %Y')
 data_f = data_object.strftime('%m %Y')
 data_y = data_object.strftime('%Y')
 
-context = {'act': act, 'model': input('модель: '), 'sn': sn, 'note': note, 'act_p': input('Ранее принято по акту: '), 'date': data}
+context = {'act': act, 'model': input('модель: '), 'sn': sn, 'note': note, 'act_p': act_p, 'date': data}
 doc.render(context)
 folders()
 check_file()
+database()
 input("Нажмите Enter для закрытия программы")
 

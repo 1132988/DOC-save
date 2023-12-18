@@ -46,11 +46,11 @@ def folders(): #Проверка и создание папки
         print("Папка создана")
     else:
         print("Папка уже существует")
-def database():
-    conn = sqlite3.connect('example_p.db')
+def database(): #Создание базы данных
+    conn = sqlite3.connect('trial_guarantee.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, act INTEGER, phone TEXT, wrong TEXT, sn TEXT, snsrv TEXT, note TEXT)''')
-    cursor.execute("INSERT INTO users (act, phone, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?, ?)", (act, phone, snsrv, note, sn, wrong))
+    cursor.execute('''CREATE TABLE IF NOT EXISTS kvitanciya (id INTEGER , act INTEGER, phone TEXT, wrong TEXT, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT)''')
+    cursor.execute("INSERT INTO kvitanciya (act, phone, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?, ?)", (act, phone, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()
 
@@ -61,7 +61,7 @@ phone = input('телефон: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание (Обязательно ввести серийный номер сервера или рабочей станции!!!): ')
 
-index = note.find("SSF")  # Находим индекс начала "SSF"
+index = note.find("SSF") # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir

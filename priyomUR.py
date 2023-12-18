@@ -1,6 +1,7 @@
 #Приём для юридических лиц
 import os
 import sys
+import sqlite3
 import datetime
 from docxtpl import DocxTemplate
 from datetime import datetime
@@ -45,6 +46,13 @@ def check_file(): #Проверка на наличие файла
     else:
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}приёмЮР.docx')  # Место куда сохраняется этот файл
         print("Сохранён новый файл")
+def database(): #Создание базы данных
+    conn = sqlite3.connect('trial_guarantee.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ur (id INTEGER, act INTEGER, wrong TEXT, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT)''')
+    cursor.execute("INSERT INTO priyom_ur (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
+    conn.commit()
+    conn.close()  
 
 doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приема.docx')
 print("Акт приёма для юридических лиц")
@@ -72,4 +80,5 @@ context = {'act': act, 'model': input('модель: '), 'sn': sn, 'wrong': wron
 doc.render(context)
 
 check_file()
+folders()
 input("Нажмите Enter для закрытия программы")
