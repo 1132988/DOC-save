@@ -1,5 +1,6 @@
 #Квитанция приёме оборудования, печатается
 import sys
+import sqlite3
 import os
 from docxtpl import DocxTemplate as dtl
 from datetime import datetime
@@ -25,8 +26,8 @@ def check_file(): #Проверка на наличие файла
     else:
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx')  # Место куда сохраняется этот файл
         print("Сохранён новый файл")
-        os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере 1
-        os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере 2
+        #os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере 1
+        #os.startfile(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}.docx', 'print') #Печать файла на принтере 2
        
 def yes_not(): #Возможность перезаписи файла (отказались)
     print("Вы хотите перезаписать файл?")
@@ -45,6 +46,13 @@ def folders(): #Проверка и создание папки
         print("Папка создана")
     else:
         print("Папка уже существует")
+def database():
+    conn = sqlite3.connect('example_p.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, act INTEGER, phone TEXT, wrong TEXT, sn TEXT, snsrv TEXT, note TEXT)''')
+    cursor.execute("INSERT INTO users (act, phone, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?, ?)", (act, phone, snsrv, note, sn, wrong))
+    conn.commit()
+    conn.close()
 
 doc = dtl(r'C:\Program Files\Python38\pythonDOCX\Квитанция.docx')
 act=input('Акт №: ')
@@ -71,4 +79,5 @@ doc.render(context)
 
 folders()
 check_file()
+database()
 input("Нажмите Enter для закрытия программы")
