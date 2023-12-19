@@ -1,24 +1,20 @@
 #Поиск по базе данных (взяты таблицы kvitanciya и priyom_ch)
 import sqlite3
-# Подключение к базе данных
-conn = sqlite3.connect('trial_guarantee.db')
 
-# Создание курсора для выполнения SQL-запросов
-cursor = conn.cursor()
+from numpy import result_type
+conn = sqlite3.connect('trial_guarantee.db') # Подключение к базе данных
+cursor = conn.cursor() # Создание курсора для выполнения SQL-запросов
 
 # Выполнение поискового запроса
 search_term = input("Введите критерий поиска: ")
-cursor.execute("SELECT * FROM kvitanciya JOIN priyom_ch WHERE kvitanciya.snsrv LIKE ? OR priyom_ch.act LIKE ? OR kvitanciya.phone LIKE ?", ('%' + search_term + '%', '%' + search_term + '%', '%' + search_term + '%'))
-
-# Получение результатов поиска
+cursor.execute("SELECT kvitanciya.phone, kvitanciya.snsrv, kvitanciya.sn, priyom_ch.act, priyom_ch.sn FROM kvitanciya, priyom_ch WHERE kvitanciya.snsrv = priyom_ch.snsrv")
 results = cursor.fetchall()
-
-# Вывод результатов
-if not results:
+if not results: # Вывод результатов
     print("не найдено")
 else:
     for row in results:
-        print(row)
+        print("Results: ", row)
 
-# Закрытие соединения
-conn.close()
+        
+
+conn.close() # Закрытие соединения

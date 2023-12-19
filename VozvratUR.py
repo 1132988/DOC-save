@@ -49,7 +49,7 @@ def check_file(): #Проверка на наличие файла
 def database(): #Создание базы данных
     conn = sqlite3.connect('trial_guarantee.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ur (id INTEGER, act INTEGER, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT, act_p INTEGER)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ur (id INTEGER PRIMARY KEY, act INTEGER, sn TEXT, snsrv TEXT, note TEXT, act_p INTEGER)''')
     cursor.execute("INSERT INTO vozvrat_ur (act, snsrv, note, sn, act_p) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, act_p))
     conn.commit()
     conn.close()  
@@ -58,7 +58,8 @@ print("Акт возврата для юридических лиц")
 act = input('Акт №: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
-act_p = input('Ранее принято по акту: ')
+act_p = input('Ранее принято по акту приёма: ')
+
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
 print(snserv_dir)  # Выводим результат

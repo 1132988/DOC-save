@@ -1,4 +1,4 @@
-#Квитанция приёме оборудования, печатается
+#Квитанция о приёме оборудования, печатается
 import sys
 import sqlite3
 import os
@@ -43,10 +43,10 @@ def folders(): #Проверка и создание папки
         print("Папка создана")
     else:
         print("Папка уже существует")
-def database(): #Создание базы данных
+def database(): #Создание или внесение в базу данных
     conn = sqlite3.connect('trial_guarantee.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS kvitanciya (id INTEGER , act INTEGER, phone TEXT, wrong TEXT, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS kvitanciya (id INTEGER PRIMARY KEY, act INTEGER, phone TEXT, wrong TEXT, sn TEXT, snsrv TEXT, note TEXT)''')
     cursor.execute("INSERT INTO kvitanciya (act, phone, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?, ?)", (act, phone, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()

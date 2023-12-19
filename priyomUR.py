@@ -49,11 +49,10 @@ def check_file(): #Проверка на наличие файла
 def database(): #Создание базы данных
     conn = sqlite3.connect('trial_guarantee.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ur (id INTEGER, act INTEGER, wrong TEXT, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ur (id INTEGER PRIMARY KEY, act INTEGER, wrong TEXT, sn TEXT, snsrv TEXT, note TEXT)''')
     cursor.execute("INSERT INTO priyom_ur (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()  
-
 doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приема.docx')
 print("Акт приёма для юридических лиц")
 act = input('Акт №: ')
@@ -81,4 +80,5 @@ doc.render(context)
 
 check_file()
 folders()
+database()
 input("Нажмите Enter для закрытия программы")

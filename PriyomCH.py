@@ -48,7 +48,7 @@ def check_file(): #Проверка на наличие файла
 def database(): #Создание базы данных
     conn = sqlite3.connect('trial_guarantee.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ch (id INTEGER, act INTEGER, wrong TEXT, sn TEXT, snsrv TEXT PRIMARY KEY, note TEXT)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ch (id INTEGER PRIMARY KEY, act INTEGER, wrong TEXT, sn TEXT, snsrv TEXT, note TEXT)''')
     cursor.execute("INSERT INTO priyom_ch (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()    
