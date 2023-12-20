@@ -7,12 +7,12 @@ cursor = conn.cursor() # Создание курсора для выполнен
 
 # Выполнение поискового запроса
 search_term = input("Введите критерий поиска: ")
-cursor.execute("SELECT kvitanciya.phone, kvitanciya.snsrv, kvitanciya.sn, priyom_ch.act, priyom_ch.sn FROM kvitanciya, priyom_ch WHERE kvitanciya.snsrv = priyom_ch.snsrv")
+cursor.execute("SELECT * FROM kvitanciya, priyom_ch, vozvrat_ch WHERE kvitanciya.snsrv = priyom_ch.snsrv AND priyom_ch.snsrv = vozvrat_ch.snsrv")
 results = cursor.fetchall()
 if not results: # Вывод результатов
     print("не найдено")
 else:
-    for row in results:
+    for row in results: #Продумать вывод результатов в виде удобной таблицы!!!
         print("Results: ", row)
 
         

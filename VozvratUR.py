@@ -56,6 +56,7 @@ def database(): #Создание базы данных
 doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт возврата.docx')
 print("Акт возврата для юридических лиц")
 act = input('Акт №: ')
+model = input('модель: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
 act_p = input('Ранее принято по акту приёма: ')
@@ -75,7 +76,7 @@ data_y = data_object.strftime('%Y')
 
 folders()
 
-context = {'act': act, 'model': input('модель: '), 'sn': sn, 'note': note, 'act_p': act_p, 'date': data}
+context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data}
 doc.render(context)
 
 check_file()
