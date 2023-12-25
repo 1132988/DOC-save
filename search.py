@@ -15,6 +15,4 @@ else:
     for row in results: #Продумать вывод результатов в виде удобной таблицы!!!
         print("Results: ", row)
 
-        
-
 conn.close() # Закрытие соединения
