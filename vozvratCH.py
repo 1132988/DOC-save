@@ -9,7 +9,7 @@ from datetime import datetime
 import locale
 locale.setlocale(locale.LC_ALL, 'Russian')
 def check_miss(): #Проверка по количеству символов для: серийного номера и неисправности
-    if len(sn)>=5 and len(note)>=9 and snsrv:
+    if len(sn)>=4 and len(note)>=9 and snsrv:
         print("Продолжаем работу")
     else:
         print('"ERROR!" Невозможно сохранить файл, вводите данные полностью!!!')
@@ -58,7 +58,7 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
     else:
         conn = sqlite3.connect('trial_guarantee.db')
         cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER PRIMARY KEY, act INTEGER, sn TEXT, snsrv TEXT, note TEXT, act_p INTEGER)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER, act INTEGER, sn TEXT, snsrv NCHAR PRIMARY KEY, note TEXT, act_p INTEGER)''')
         cursor.execute("INSERT INTO vozvrat_ch (act, snsrv, note, sn) VALUES (?, ?, ?, ?)", (act, snsrv, note, sn)) #,act_p))
         conn.commit()
         conn.close()
@@ -69,7 +69,7 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
         act_p = cursor.fetchall()
         act_p = re.sub("[(|,|)]","", str(act_p[1]))
         print(act_p)
-        cursor.execute("INSERT INTO vozvrat_ch (act_p) VALUES (?)", (act_p,))
+        #cursor.execute("INSERT INTO vozvrat_ch (act_p) VALUES (?)", (act_p,))
         cursor.execute("DELETE FROM vozvrat_ch WHERE (act IS NULL OR act_p IS NULL) OR (act = '' OR act_p = '')")
         cursor.execute("INSERT INTO vozvrat_ch (act, snsrv, note, sn, act_p) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, act_p))
         conn.commit()

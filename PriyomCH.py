@@ -20,7 +20,7 @@ def yes_not(): #Возможность перезаписи файла (отка
     else:
         print("Оставлено без изменений")
 def check_miss(): #Проверка по количеству символов для: серийного номера оборудования и неисправности
-    if len(wrong)>=5 and len(sn)>=5 and len(note)>=9 and snsrv:
+    if len(wrong)>=4 and len(sn)>=4 and len(note)>=9 and snsrv:
         print("Продолжаем работу")
     else:
         print('"ERROR!" Невозможно сохранить файл, вводите данные полностью!!!')
@@ -48,7 +48,7 @@ def check_file(): #Проверка на наличие файла
 def database(): #Создание базы данных
     conn = sqlite3.connect('trial_guarantee.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ch (id INTEGER PRIMARY KEY, act INTEGER, wrong TEXT, sn TEXT, snsrv TEXT, note TEXT)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS priyom_ch (id INTEGER, act INTEGER, wrong TEXT, sn TEXT, snsrv NCHAR PRIMARY KEY, note TEXT)''')
     cursor.execute("INSERT INTO priyom_ch (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()    
