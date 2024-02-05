@@ -66,7 +66,7 @@ def database_and_filecheck(): #Проверка файла и последующ
         conn = sqlite3.connect('trial_guarantee.db')
         cursor = conn.cursor()
         #Возможно правильный запрос, проверять!!!
-        cursor.execute("SELECT priyom_ur.act FROM priyom_ur JOIN vozvrat_ur ON priyom_ur.snsrv = vozvrat_ur.snsrv WHERE priyom_ur.snsrv = ? AND vozvrat_ur.snsrv = ?", (snsrv, snsrv)) #Думать над этим!!!
+        cursor.execute("SELECT priyom_ur.act FROM priyom_ur JOIN vozvrat_ur ON priyom_ur.snsrv = vozvrat_ur.snsrv WHERE priyom_ur.snsrv = ? AND vozvrat_ur.snsrv = ?", (snsrv, snsrv)) #Возможно правильный запрос
         act_p = cursor.fetchall()
         act_p = re.sub(r'\D', '', str(act_p))
         print(act_p)

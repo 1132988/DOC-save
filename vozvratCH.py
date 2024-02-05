@@ -58,7 +58,7 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
     else:
         conn = sqlite3.connect('trial_guarantee.db')
         cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER, act INTEGER, sn TEXT, snsrv NCHAR, note TEXT, act_p INTEGER)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER PRIMARY KEY, act INTEGER, sn TEXT, snsrv NCHAR, note TEXT, act_p INTEGER)''')
         cursor.execute("REPLACE INTO vozvrat_ch (act, snsrv, note, sn) VALUES (?, ?, ?, ?)", (act, snsrv, note, sn)) #,act_p))
         conn.commit()
         conn.close()
@@ -66,7 +66,7 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
         conn = sqlite3.connect('trial_guarantee.db')
         cursor = conn.cursor()
         #Возможно правильный запрос, проверять!!!
-        cursor.execute("SELECT priyom_ch.act FROM priyom_ch JOIN vozvrat_ch ON priyom_ch.snsrv = vozvrat_ch.snsrv WHERE priyom_ch.snsrv = ? AND vozvrat_ch.snsrv = ?", (snsrv, snsrv)) #Думать над этим!!!
+        cursor.execute("SELECT priyom_ch.act FROM priyom_ch JOIN vozvrat_ch ON priyom_ch.snsrv = vozvrat_ch.snsrv WHERE priyom_ch.snsrv = ? AND vozvrat_ch.snsrv = ?", (snsrv, snsrv)) #Возможно правильно
         act_p = cursor.fetchall()
         act_p = re.sub(r'\D', '', str(act_p))
         print(act_p)
@@ -86,7 +86,7 @@ print("Акт возврата для частных лиц")
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
-note = input('Примечание, что было сделано и тп (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+note = input('Написать из какого сервера! Примечание (ремонт, замена, неисправность не обнаружена, т.п.)')
 #act_p = input('Ранее принято по акту приёма: ') #Думать над этим
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
