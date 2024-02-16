@@ -22,8 +22,8 @@ config['Paths'] = {
     'PriyomURPath': priyomUR_path,
     'VozvratCHPath': vozvratCH_path,
     'VozvratURPath': vozvratUR_path,
-    'piyomURdocPath': priyomURdoc_path,
-    'piyomCHdocPath': priyomCHdoc_path,
+    'priyomURdocPath': priyomURdoc_path,
+    'priyomCHdocPath': priyomCHdoc_path,
     'VozvratCHdocPath': vozvratCHdoc_path,
     'VozvratURdocPath': vozvratURdoc_path,
 }
