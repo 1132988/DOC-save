@@ -10,6 +10,10 @@ priyomCH_path = os.path.join(install_path, "PriyomCH.py")
 priyomUR_path = os.path.join(install_path, "priyomUR.py")
 vozvratCH_path = os.path.join(install_path, "vozvratCH.py")
 vozvratUR_path = os.path.join(install_path, "VozvratUR.py")
+priyomURdoc_path = os.path.join(install_path, "Акт_приема.docx")
+priyomCHdoc_path = os.path.join(install_path, "Акт_приемаЧЛ.docx")
+vozvratCHdoc_path = os.path.join(install_path, "Акт_возвратаЧЛ.docx")
+vozvratURdoc_path = os.path.join(install_path, "Акт_возврата.docx")
 
 config = configparser.ConfigParser()
 config['Paths'] = {
@@ -17,7 +21,11 @@ config['Paths'] = {
     'PriyomCHPath': priyomCH_path,
     'PriyomURPath': priyomUR_path,
     'VozvratCHPath': vozvratCH_path,
-    'VozvratURPath': vozvratUR_path
+    'VozvratURPath': vozvratUR_path,
+    'piyomURdocPath': priyomURdoc_path,
+    'piyomCHdocPath': priyomCHdoc_path,
+    'VozvratCHdocPath': vozvratCHdoc_path,
+    'VozvratURdocPath': vozvratURdoc_path,
 }
 
 with open(config_path, 'w') as configfile:
