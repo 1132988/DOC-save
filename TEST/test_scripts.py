@@ -1,7 +1,7 @@
 import os
 import configparser
 
-install_path = (r'C:/Program Files/Python38/pythonDOCX')  # Путь, куда устанавливается программа
+install_path = (r'C:\Program Files\Python38\pythonDOCX')  # Путь, куда устанавливается программа
 config_path = os.path.join(install_path, "config.ini")
 os.makedirs(install_path, exist_ok=True)  # Создаем папку, если она еще не существует
 
@@ -41,15 +41,15 @@ print("4. Возврат для частных лиц")
 print("5. Возврат для Юридических лиц")
 choice = input("Введите номер программы для запуска: ")
 if choice == "1": 
-    os.system(kvitanciya_path)
+    os.system(f'python {kvitanciya_path}')
 elif choice == "2":
-    os.system(priyomCH_path)
+    os.system(f'python {priyomCH_path}')
 elif choice == "3":
-    os.system(priyomUR_path)
+    os.system(f'python {priyomUR_path}')
 elif choice == "4":
-    os.system(vozvratCH_path)
+    os.system(f'python {vozvratCH_path}')
 elif choice == "5":
-    os.system(vozvratUR_path)
+    os.system(f'python {vozvratUR_path}')
 else:
     print("Неправильный выбор")
 
