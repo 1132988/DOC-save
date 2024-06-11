@@ -79,13 +79,14 @@ def database_and_filecheck(): #Создание базы данных
         doc.render(context)
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЮР.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_возврата.docx')
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возврата.docx')
 print("Акт возврата для юридических лиц")
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
 #act_p = input('Ранее принято по акту приёма: ')
+name = input("Кто сделал")
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  

@@ -5,6 +5,7 @@ import sqlite3
 from docxtpl import DocxTemplate
 from datetime import datetime
 import locale
+
 locale.setlocale(locale.LC_ALL, 'Russian')
 def sn_server(): # Находим индекс "SSF" и ещё 6 цифр серийного номера сервера или рабочей станции из примечания (код этой функции задействован, сама функция - нет)
     index = note.find("SSF")  
@@ -53,12 +54,14 @@ def database(): #Создание базы данных
     conn.commit()
     conn.close()    
 
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приемаЧЛ.docx') #Шаблон от которого заполняется файл
+
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_приемаЧЛ.docx') #Шаблон от которого заполняется файл
 print("Акт приёма для частных лиц")
 act = input('Акт №: ')
 sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+name = input("Кто сделал")
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  

@@ -7,6 +7,9 @@ import datetime
 from docxtpl import DocxTemplate
 from datetime import datetime
 import locale
+#from yaml import scan
+from setup import files
+
 locale.setlocale(locale.LC_ALL, 'Russian')
 def check_miss(): #Проверка по количеству символов для: серийного номера и неисправности
     if len(sn)>=5 and len(note)>=9 and snsrv:
@@ -80,13 +83,16 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЧЛ.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
     
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_возвратаЧЛ.docx')
+#doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возвратаЧЛ.docx')
+doc = DocxTemplate(files('Акт_возвратаЧЛ.docx'))
 print("Акт возврата для частных лиц")
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание, что было сделано и тп (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+who = input('Кто делал акт?: ')
 #act_p = input('Ранее принято по акту приёма: ') #Думать над этим
+name = input("Кто сделал")
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]

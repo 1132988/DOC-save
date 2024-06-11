@@ -53,12 +53,14 @@ def database(): #Создание базы данных
     cursor.execute("INSERT INTO priyom_ur (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()  
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приема.docx')
+    
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возврата.docx.docx')
 print("Акт приёма для юридических лиц")
 act = input('Акт №: ')
 sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+name = input("Кто сделал")
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
