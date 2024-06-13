@@ -58,25 +58,25 @@ def naming(name): #Возможность перезаписи файла (от�
     answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
     answer = answer.title()
     if answer == "1":
-        name = ("COM1")
+        name = ("Начальник производства")
     elif answer == "2":
-        name = ("COM2")
+        name = ("Главный инженер")
     else:
-        name = ("COM3")
+        name = ("Специалист")
     print(name)
     return name  # Добавь возврат значения
-names = naming(__name__)
-doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возврата.docx.docx')
+
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_приема.docx')
 print("Акт приёма для юридических лиц")
-#2222naming()
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+names = naming(__name__)
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = note[index:index+9]  
+snserv_dir = note[index:index+9]
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 

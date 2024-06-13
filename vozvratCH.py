@@ -82,7 +82,19 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
         doc.render(context)
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЧЛ.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
-    
+def naming(name): #Возможность перезаписи файла (отказались)
+    print("Кто делал этот файл?")
+    answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
+    answer = answer.title()
+    if answer == "1":
+        name = ("Начальник производства")
+    elif answer == "2":
+        name = ("Главный инженер")
+    else:
+        name = ("Специалист")
+    print(name)
+    return name  # Добавь возврат значения 
+   
 #doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возвратаЧЛ.docx')
 doc = DocxTemplate(files('Акт_возвратаЧЛ.docx'))
 print("Акт возврата для частных лиц")
@@ -92,7 +104,7 @@ sn = input('Serial Number оборудования: ')
 note = input('Примечание, что было сделано и тп (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
 who = input('Кто делал акт?: ')
 #act_p = input('Ранее принято по акту приёма: ') #Думать над этим
-name = input("Кто сделал")
+names = naming(__name__)
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]
