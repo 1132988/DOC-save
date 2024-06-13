@@ -78,22 +78,26 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
         conn.commit()
         conn.close()           
         
-        context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data} #Подумать.
+        context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data, 'name': name, 'nam': nam} #Подумать.
         doc.render(context)
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЧЛ.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
-def naming(name): #Возможность перезаписи файла (отказались)
+def naming():  #Кто делал файл
     print("Кто делал этот файл?")
     answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
     answer = answer.title()
     if answer == "1":
-        name = ("Начальник производства")
+        name = "Начальник производства"
+        nam = "Имя 1"
     elif answer == "2":
-        name = ("Главный инженер")
+        name = "Главный инженер"
+        nam = "Имя 2"
     else:
-        name = ("Специалист")
+        name = "Специалист"
+        nam = "Имя 3"    
     print(name)
-    return name  # Добавь возврат значения 
+    print(nam)
+    return name, nam
    
 #doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возвратаЧЛ.docx')
 doc = DocxTemplate(files('Акт_возвратаЧЛ.docx'))
@@ -104,7 +108,7 @@ sn = input('Serial Number оборудования: ')
 note = input('Что было сделано? Написать из какого сервера: ')
 who = input('Кто делал акт?: ')
 #act_p = input('Ранее принято по акту приёма: ') #Думать над этим
-names = naming(__name__)
+name, nam = naming()
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]

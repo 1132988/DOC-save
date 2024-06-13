@@ -53,18 +53,22 @@ def database(): #Создание базы данных
     cursor.execute("INSERT INTO priyom_ch (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()    
-def naming(name): #Возможность перезаписи файла (отказались)
+def naming():  #Кто делал файл
     print("Кто делал этот файл?")
     answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
     answer = answer.title()
     if answer == "1":
-        name = ("Начальник производства")
+        name = "Начальник производства"
+        nam = "Имя 1"
     elif answer == "2":
-        name = ("Главный инженер")
+        name = "Главный инженер"
+        nam = "Имя 2"
     else:
-        name = ("Специалист")
+        name = "Специалист"
+        nam = "Имя 3"    
     print(name)
-    return name  # Добавь возврат значения
+    print(nam)
+    return name, nam
 
 doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_приемаЧЛ.docx') #Шаблон от которого заполняется файл
 print("Акт приёма для частных лиц")
@@ -73,7 +77,7 @@ model = input("Модель: ")
 sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность: ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
-names = naming(__name__)
+name, nam = naming()
 
 index = note.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
@@ -88,7 +92,7 @@ data = data_object.strftime('%d %B %Y')  #Перевод даты из вида 
 data_f = data_object.strftime('%m %Y')
 data_y = data_object.strftime('%Y')
 
-context = {'act': act, 'model': model, 'sn': sn, 'wrong': wrong , 'note': note , 'date': data, 'name': names}
+context = {'act': act, 'model': model, 'sn': sn, 'wrong': wrong , 'note': note , 'date': data, 'name': name, 'nam': nam}
 doc.render(context)
 
 folders() #Проверка на наличие папки и её создание
