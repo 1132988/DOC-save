@@ -71,7 +71,7 @@ data = data_object.strftime('%d %B %Y')  #Перевод даты из вида 
 data_f = data_object.strftime('%m %Y')
 data_y = data_object.strftime('%Y')
 
-context = { 'act': act, 'company' : input('Компания Клиента:  '), 'name' : input('Имя клиента:  '), 'phone': phone, 'email': input('E-mail: '), 'model': input('модель: '), 'sn': sn, 'wrong': wrong, 'note': note}
+context = {'act': act, 'company' : input('Компания Клиента:  '), 'name' : input('Имя клиента:  '), 'phone': phone, 'email': input('E-mail: '), 'model': input('модель: '), 'sn': sn, 'wrong': wrong, 'note': note}
 doc.render(context)
 
 folders()
