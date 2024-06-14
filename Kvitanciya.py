@@ -50,13 +50,29 @@ def database(): #Создание или внесение в базу данны
     cursor.execute("INSERT INTO kvitanciya (act, phone, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?, ?)", (act, phone, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()
-
+def naming():  #Кто делал файл
+    print("Кто делал этот файл?")
+    answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
+    answer = answer.title()
+    if answer == "1":
+        name = "Начальник производства"
+        nam = "Имя 1"
+    elif answer == "2":
+        name = "Главный инженер"
+        nam = "Имя 2"
+    else:
+        name = "Специалист"
+        nam = "Имя 3"    
+    print(name)
+    print(nam)
+    return name, nam
 doc = dtl(r'C:\Program Files\Python38\pythonDOCX\Квитанция.docx')
 act=input('Акт №: ')
 wrong = input('Заявленная Неисправность: ')
 phone = input('телефон: ')
 sn = input('Serial Number оборудования: ')
 note = input('Примечание (Обязательно ввести серийный номер сервера или рабочей станции!!!): ')
+name, nam = naming()
 
 index = note.find("SSF") # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
@@ -71,7 +87,7 @@ data = data_object.strftime('%d %B %Y')  #Перевод даты из вида 
 data_f = data_object.strftime('%m %Y')
 data_y = data_object.strftime('%Y')
 
-context = {'act': act, 'company' : input('Компания Клиента:  '), 'name' : input('Имя клиента:  '), 'phone': phone, 'email': input('E-mail: '), 'model': input('модель: '), 'sn': sn, 'wrong': wrong, 'note': note}
+context = {'act': act, 'company' : input('Компания Клиента:  '), 'name' : input('Имя клиента:  '), 'phone': phone, 'email': input('E-mail: '), 'model': input('модель: '), 'sn': sn, 'wrong': wrong, 'note': note, 'nam': nam}
 doc.render(context)
 
 folders()

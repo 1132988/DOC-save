@@ -99,11 +99,12 @@ print("Акт возврата для юридических лиц")
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
-note = input('Что было сделано? Написать из какого сервера: ')
+note = input('Примечание (ремонт, замена, неисправность не обнаружена, т.п.): ')
+server = input('Серийный номер сервера (для того, чтобы сохранить в нужной папке, а также чтобы вытянуть из бызы акт приёма): ')
 #act_p = input('Ранее принято по акту приёма: ')
 name, nam = naming()
 
-index = note.find("SSF")  # Находим индекс начала "SSF"
+index = server.find("SSF")  # Находим индекс начала "SSF"
 snserv_dir = note[index:index+9]  
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
