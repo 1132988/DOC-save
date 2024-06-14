@@ -78,10 +78,9 @@ sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность : ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
 name, nam = naming()
-server = input("Указать из какого сервера")
 
-index = server.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = server[index:index+9]  
+index = note.find("SSF")  # Находим индекс начала "SSF"
+snserv_dir = note[index:index+9]  
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 
