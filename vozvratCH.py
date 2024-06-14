@@ -12,7 +12,7 @@ from setup import files
 
 locale.setlocale(locale.LC_ALL, 'Russian')
 def check_miss(): #Проверка по количеству символов для: серийного номера и неисправности
-    if len(sn)>=5 and len(note)>=9 and snsrv:
+    if len(sn)>=4 and len(note)>=9 and snsrv:
         print("Продолжаем работу")
     else:
         print('"ERROR!" Невозможно сохранить файл, вводите данные полностью!!!')
@@ -61,18 +61,19 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
     else:
         conn = sqlite3.connect('trial_guarantee.db')
         cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER PRIMARY KEY, act INTEGER, sn TEXT, snsrv TEXT, note TEXT, act_p INTEGER)''')
-        cursor.execute("INSERT INTO vozvrat_ch (act, snsrv, note, sn) VALUES (?, ?, ?, ?)", (act, snsrv, note, sn)) #,act_p))
+        cursor.execute('''CREATE TABLE IF NOT EXISTS vozvrat_ch (id INTEGER PRIMARY KEY, act INTEGER, sn TEXT, snsrv NCHAR, note TEXT, act_p INTEGER)''')
+        cursor.execute("REPLACE INTO vozvrat_ch (act, snsrv, note, sn) VALUES (?, ?, ?, ?)", (act, snsrv, note, sn)) #,act_p))
         conn.commit()
         conn.close()
-        
+        #snsrv=('snsrv')
         conn = sqlite3.connect('trial_guarantee.db')
         cursor = conn.cursor()
-        cursor.execute("SELECT priyom_ch.act FROM priyom_ch JOIN vozvrat_ch ON priyom_ch.snsrv = vozvrat_ch.snsrv") #Думать над этим!!!
+        #Возможно правильный запрос, проверять!!!
+        cursor.execute("SELECT priyom_ch.act FROM priyom_ch JOIN vozvrat_ch ON priyom_ch.snsrv = vozvrat_ch.snsrv WHERE priyom_ch.snsrv = ? AND vozvrat_ch.snsrv = ?", (snsrv, snsrv)) #Возможно правильно
         act_p = cursor.fetchall()
-        act_p = re.sub("[(|,|)]","", str(act_p[1]))
+        act_p = re.sub(r'\D', '', str(act_p))
         print(act_p)
-        cursor.execute("INSERT INTO vozvrat_ch (act_p) VALUES (?)", (act_p,))
+        #cursor.execute("INSERT INTO vozvrat_ch (act_p) VALUES (?)", (act_p,))
         cursor.execute("DELETE FROM vozvrat_ch WHERE (act IS NULL OR act_p IS NULL) OR (act = '' OR act_p = '')")
         cursor.execute("INSERT INTO vozvrat_ch (act, snsrv, note, sn, act_p) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, act_p))
         conn.commit()
@@ -111,7 +112,7 @@ server = input('Серийный номер сервера (для того, ч�
 name, nam = naming()
 
 index = server.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = note[index:index+9]
+snserv_dir = server[index:index+9]
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 
