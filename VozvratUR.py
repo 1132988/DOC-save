@@ -73,22 +73,39 @@ def database_and_filecheck(): #Проверка файла и последующ
         cursor.execute("DELETE FROM vozvrat_ur WHERE (act IS NULL OR act_p IS NULL) OR (act = '' OR act_p = '')")
         cursor.execute("INSERT INTO vozvrat_ur (act, snsrv, note, sn, act_p) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, act_p))
         conn.commit()
-        conn.close()               
-        
-        context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data} #Подумать.
+        conn.close()           
+        context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data, 'name': name, 'nam': nam} #Подумать.
         doc.render(context)
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЮР.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_возврата.docx')
+def naming():  #Кто делал файл
+    print("Кто делал этот файл?")
+    answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
+    answer = answer.title()
+    if answer == "1":
+        name = "Начальник производства"
+        nam = "Имя 1"
+    elif answer == "2":
+        name = "Главный инженер"
+        nam = "Имя 2"
+    else:
+        name = "Специалист"
+        nam = "Имя 3"    
+    print(name)
+    print(nam)
+    return name, nam
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возврата.docx')
 print("Акт возврата для юридических лиц")
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
-note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+note = input('Примечание (ремонт, замена, неисправность не обнаружена, т.п.): ')
+server = input('Серийный номер сервера (для того, чтобы сохранить в нужной папке, а также чтобы вытянуть из бызы акт приёма): ')
 #act_p = input('Ранее принято по акту приёма: ')
+name, nam = naming()
 
-index = note.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = note[index:index+9]  
+index = server.find("SSF")  # Находим индекс начала "SSF"
+snserv_dir = server[index:index+9]  
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 
@@ -103,3 +120,4 @@ data_y = data_object.strftime('%Y')
 folders()
 database_and_filecheck()
 input("Нажмите Enter для закрытия программы")
+

@@ -5,6 +5,7 @@ import sqlite3
 from docxtpl import DocxTemplate
 from datetime import datetime
 import locale
+
 locale.setlocale(locale.LC_ALL, 'Russian')
 def sn_server(): # Находим индекс "SSF" и ещё 6 цифр серийного номера сервера или рабочей станции из примечания (код этой функции задействован, сама функция - нет)
     index = note.find("SSF")  
@@ -52,16 +53,35 @@ def database(): #Создание базы данных
     cursor.execute("INSERT INTO priyom_ch (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()    
+def naming():  #Кто делал файл
+    print("Кто делал этот файл?")
+    answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
+    answer = answer.title()
+    if answer == "1":
+        name = "Начальник производства"
+        nam = "Имя 1"
+    elif answer == "2":
+        name = "Главный инженер"
+        nam = "Имя 2"
+    else:
+        name = "Специалист"
+        nam = "Имя 3"    
+    print(name)
+    print(nam)
+    return name, nam
 
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приемаЧЛ.docx') #Шаблон от которого заполняется файл
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_приемаЧЛ.docx') #Шаблон от которого заполняется файл
 print("Акт приёма для частных лиц")
 act = input('Акт №: ')
+model = input("Модель: ")
 sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность : ')
 note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+name, nam = naming()
+server = input("Указать из какого сервера")
 
-index = note.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = note[index:index+9]  
+index = server.find("SSF")  # Находим индекс начала "SSF"
+snserv_dir = server[index:index+9]  
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 
@@ -73,7 +93,7 @@ data = data_object.strftime('%d %B %Y')  #Перевод даты из вида 
 data_f = data_object.strftime('%m %Y')
 data_y = data_object.strftime('%Y')
 
-context = {'act': act, 'model': input('модель: '), 'sn': sn, 'wrong': wrong , 'note': note , 'date': data}
+context = {'act': act, 'model': model, 'sn': sn, 'wrong': wrong , 'note': note , 'date': data, 'name': name, 'nam': nam}
 doc.render(context)
 
 folders() #Проверка на наличие папки и её создание

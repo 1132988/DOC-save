@@ -53,15 +53,35 @@ def database(): #Создание базы данных
     cursor.execute("INSERT INTO priyom_ur (act, snsrv, note, sn, wrong) VALUES (?, ?, ?, ?, ?)", (act, snsrv, note, sn, wrong))
     conn.commit()
     conn.close()  
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_приема.docx')
+def naming():  #Кто делал файл
+    print("Кто делал этот файл?")
+    answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
+    answer = answer.title()
+    if answer == "1":
+        name = "Начальник производства"
+        nam = "Имя 1"
+    elif answer == "2":
+        name = "Главный инженер"
+        nam = "Имя 2"
+    else:
+        name = "Специалист"
+        nam = "Имя 3"    
+    print(name)
+    print(nam)
+    return name, nam
+
+doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_приема.docx')
 print("Акт приёма для юридических лиц")
 act = input('Акт №: ')
+model = input('модель: ')
 sn = input('Serial Number оборудования: ')
 wrong = input('Заявленная Неисправность: ')
-note = input('Примечание (Обязательно ввести SN Сервера или рабочей станции, далее по желанию): ')
+note = input('Примечание: ')
+server = input("Указать из какого сервера")
+name, nam = naming()  # Вызываем функцию один раз и получаем оба значения
 
-index = note.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = note[index:index+9]  
+index = server.find("SSF")  # Находим индекс начала "SSF"
+snserv_dir = server[index:index+9]
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 
@@ -75,7 +95,7 @@ data_y = data_object.strftime('%Y')
 
 folders()
 
-context = {'act': act, 'model': input('модель: '), 'sn': sn, 'wrong': wrong , 'note': note , 'date': data}
+context = {'act': act, 'model': model, 'sn': sn, 'wrong': wrong , 'note': note , 'date': data, 'name': name, 'nam': nam}
 doc.render(context)
 
 check_file()

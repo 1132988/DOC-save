@@ -7,6 +7,9 @@ import datetime
 from docxtpl import DocxTemplate
 from datetime import datetime
 import locale
+#from yaml import scan
+from setup import files
+
 locale.setlocale(locale.LC_ALL, 'Russian')
 def check_miss(): #Проверка по количеству символов для: серийного номера и неисправности
     if len(sn)>=4 and len(note)>=9 and snsrv:
@@ -76,21 +79,40 @@ def database_and_filecheck(): #Создание базы данных ВОЗМО
         conn.commit()
         conn.close()           
         
-        context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data} #Подумать.
+        context = {'act': act, 'model': model, 'sn': sn, 'note': note, 'act_p': act_p, 'date': data, 'name': name, 'nam': nam} #Подумать.
         doc.render(context)
         doc.save(f'D:/Documents/{data_y}/{data_f}/{snsrv}/{act}возвратЧЛ.docx')  # Место куда сохраняется этот файл
         print("Файл сохранен")
-    
-doc = DocxTemplate(r'C:\Program Files\Python38\pythonDOCX\Акт_возвратаЧЛ.docx')
+def naming():  #Кто делал файл
+    print("Кто делал этот файл?")
+    answer = input('Введите 1 (COM1), 2 (COM2), 3 (COM3): ')
+    answer = answer.title()
+    if answer == "1":
+        name = "Начальник производства"
+        nam = "Имя 1"
+    elif answer == "2":
+        name = "Главный инженер"
+        nam = "Имя 2"
+    else:
+        name = "Специалист"
+        nam = "Имя 3"    
+    print(name)
+    print(nam)
+    return name, nam
+   
+#doc = DocxTemplate(r'C:\Users\Администратор\Programs\pythonDOCX\Акт_возвратаЧЛ.docx')
+doc = DocxTemplate(files('Акт_возвратаЧЛ.docx'))
 print("Акт возврата для частных лиц")
 act = input('Акт №: ')
 model = input('модель: ')
 sn = input('Serial Number оборудования: ')
-note = input('Написать из какого сервера! Примечание (ремонт, замена, неисправность не обнаружена, т.п.)')
+note = input('Примечание (ремонт, замена, неисправность не обнаружена, т.п.): ')
+server = input('Серийный номер сервера (для того, чтобы сохранить в нужной папке, а также чтобы вытянуть из бызы акт приёма): ')
 #act_p = input('Ранее принято по акту приёма: ') #Думать над этим
+name, nam = naming()
 
-index = note.find("SSF")  # Находим индекс начала "SSF"
-snserv_dir = note[index:index+9]
+index = server.find("SSF")  # Находим индекс начала "SSF"
+snserv_dir = server[index:index+9]
 print(snserv_dir)  # Выводим результат
 snsrv = snserv_dir
 

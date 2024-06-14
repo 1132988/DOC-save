@@ -1,0 +1,5 @@
+configparser
+sqlite3
+docxtpl
+datetime
+yaml
